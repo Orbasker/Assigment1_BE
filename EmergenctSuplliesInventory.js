@@ -49,17 +49,7 @@ class Inventory {
                 return element;
             }
         }
-        // this.inventory.inventory.forEach(element => {
-        //     if (element.name == item) {
-        //         return element
-        //     }
-        // });
-        // for (let i = 0; i < this.inventory; i++) {
-        //     console.log(this.inventory[i].name);
-        //     if (this.inventory[i].name == item) {
-        //         return this.inventory[i];
-        //     }
-        // }
+        return null;
     }
 }
 
