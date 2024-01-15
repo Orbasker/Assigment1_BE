@@ -1,0 +1,19 @@
+{
+    "inventory": [
+        {
+            "name": "item1",
+            "quantity": 10,
+            "price": 5.99
+        },
+        {
+            "name": "item2",
+            "quantity": 5,
+            "price": 9.99
+        },
+        {
+            "name": "item3",
+            "quantity": 3,
+            "price": 12.99
+        }
+    ]
+}
