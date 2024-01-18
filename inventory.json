@@ -1,19 +1,29 @@
 {
-    "inventory": [
-        {
-            "name": "item1",
-            "quantity": 10,
-            "price": 5.99
-        },
-        {
-            "name": "item2",
-            "quantity": 5,
-            "price": 9.99
-        },
-        {
-            "name": "item3",
-            "quantity": 3,
-            "price": 12.99
-        }
-    ]
+  "inventory": [
+    {
+      "name": "item1",
+      "quantity": 10,
+      "price": 5.99
+    },
+    {
+      "name": "item2",
+      "quantity": 5,
+      "price": 9.99
+    },
+    {
+      "name": "item3",
+      "quantity": 3,
+      "price": 12.99
+    },
+    {
+      "name": "test new 2",
+      "quantity": "quantity test 3546445",
+      "price": "5992"
+    },
+    {
+      "name": "test 5",
+      "quantity": "quantity test new",
+      "price": "599"
+    }
+  ]
 }

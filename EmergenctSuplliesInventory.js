@@ -1,10 +1,5 @@
 const fs = require('fs');
-// Emergency Supplies Inventory System
-// Create a new inventory item
-// Read current inventory levels
-// Update item details or quantities
-// Delete items no longer in stock
-// fs = require('fs');
+
 class InventoryItem {
     constructor(name, quantity, price) {
         this.name = name;
@@ -13,37 +8,69 @@ class InventoryItem {
     }
 }
 
-// The inventory array should be recieved from the json file and evrery time we add a new item to the inventory we should update the json file
 class Inventory {
     constructor() {
-        this.inventory = fs.readFileSync('Assigment1_BE/inventory.json');
+        this.inventory = fs.readFileSync('inventory.json');
         this.inventory = JSON.parse(this.inventory);
     }
-    addItem(item) {
-        fs.writeFile('inventory.json', JSON.stringify(item), (err) => {
-            if (err) throw err;
-            console.log('The file has been saved!');
+    write_invent(msg="Inventory been updated!") {
+        fs.writeFile('inventory.json', JSON.stringify(this.inventory, null, 2), (err) => {
+            if (err) {
+                throw err;
+            }
+            console.log(msg);
         });
+        
     }
-    deleteItem(item) {
-        fs.writeFile('inventory.json', JSON.stringify(item), (err) => {
-            if (err) throw err;
-            console.log('The file has been saved!');
+    ExistedInInventory(item) {
+        let flag = false;
+        this.inventory.inventory.forEach(it => {
+            if (it.name === item) {
+                flag = true;
+            }
         });
+        return flag;
+    }
+    addItem(item) {
+        if (item.name === '' || item.quantity === '' || item.price === '') {
+            throw new Error('Invalid item');
+        }
+        else if (item.quantity < 0 || item.price < 0) {
+            throw new Error('Invalid item');
+        }
+        if (this.ExistedInInventory(item.name)) {
+            throw new Error('Item already exists');
+        }
+        this.inventory.inventory.push(item);
+        this.write_invent("Item has been added to the inventory!")
+    };
+    deleteItem(item) {
+        
+        if (!this.ExistedInInventory(item)) {
+            throw new Error('Item not found');
+        }
+        // delete this.inventory.inventory[item];
+        this.inventory.inventory = this.inventory.inventory.filter(it => it.name !== item);
+        
+        this.write_invent("Item has been deleted from the inventory!")
     }
     updateItem(item) {
-        fs.writeFile('inventory.json', JSON.stringify(item), (err) => {
-            if (err) throw err;
-            console.log('The file has been saved!');
+        if (!this.ExistedInInventory(item.name)) {
+            throw new Error('Item not found');
+        }
+       this.inventory.inventory.forEach(it => {
+            if (it.name === item.name) {
+                it.quantity = item.quantity;
+                it.price = item.price;
+            }
         });
+        
+        this.write_invent("Item has been updated in the inventory!")
     }
     getItems() {
-
         return this.inventory;
     }
     getItem(item) {
-        console.log(item);
-        console.log(this.inventory);
         for (const element of this.inventory.inventory) {
             if (element.name === item) {
                 return element;
