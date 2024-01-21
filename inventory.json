@@ -24,6 +24,11 @@
       "name": "test 5",
       "quantity": "quantity test new",
       "price": "599"
+    },
+    {
+      "name": "test 7",
+      "quantity": "quantity test new",
+      "price": "599"
     }
   ]
 }

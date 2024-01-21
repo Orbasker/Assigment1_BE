@@ -9,8 +9,8 @@ class InventoryItem {
 }
 
 class Inventory {
-    constructor() {
-        this.inventory = fs.readFileSync('inventory.json');
+    constructor(filepath) {
+        this.inventory = fs.readFileSync(filepath, 'utf8');
         this.inventory = JSON.parse(this.inventory);
     }
     write_invent(msg="Inventory been updated!") {
