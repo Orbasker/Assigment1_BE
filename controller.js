@@ -1,36 +1,5 @@
-const { Inventory,InventoryItem } = require('./EmergenctSuplliesInventory');
-const http = require('http');
-const url = require('url');
-const qs = require('querystring');
-const fs = require('fs');
+
 const inventory = new Inventory('inventory.json');
-
-
-
-function handleRequest(req, res) {
-    const parsedUrl = url.parse(req.url, true);
-
-    switch (parsedUrl.pathname) {
-        case '/getItems':
-            handleGetItems(req, res);
-            break;
-        case '/getItem':
-            handleGetItem(req, res);
-            break;
-        case '/addItem':
-            handleAddItem(req, res);
-            break;
-        case '/updateItem':
-            handleUpdateItem(req, res);
-            break;
-        case '/deleteItem':
-            handleDeleteItem(req, res);
-            break;
-        default:
-            res.writeHeader(404, {'Content-Type': 'text/plain'});
-            res.end('404 Not Found');
-}
-}
 
 function handleGetItems(req, res) {
     res.writeHeader(200, {'Content-Type': 'application/json'});
@@ -41,7 +10,6 @@ function handleGetItems(req, res) {
         })
     );
 }
-
 function handleGetItem(req, res) {
     const queryItem = url.parse(req.url, true).query.item;
     const item = inventory.getItem(queryItem);
@@ -146,7 +114,4 @@ function handleDeleteItem(req, res) {
 }
 
 
-
-module.exports = {
-    handleRequest
-};
+module.exports = { handleAddItem, handleGetItem, handleGetItems, handleUpdateItem, handleDeleteItem};
