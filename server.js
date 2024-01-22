@@ -1,6 +1,6 @@
 const config = require('./config.js');
 const http = require('http');
-const handler = require('./server_upgrade');
+const handler = require('./router.js');
 const server = http.createServer((req, res) => {
     if (req.method === 'OPTIONS' ) {
         res.writeHead(200, corsHeaders);

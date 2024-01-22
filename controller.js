@@ -1,6 +1,6 @@
-
+const { Inventory, InventoryItem } = require('./EmergenctSuplliesInventory');
 const inventory = new Inventory('inventory.json');
-
+const url = require('url');
 function handleGetItems(req, res) {
     res.writeHeader(200, {'Content-Type': 'application/json'});
     res.write(JSON.stringify(inventory.getItems()));

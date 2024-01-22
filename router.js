@@ -1,8 +1,6 @@
-const { Inventory,InventoryItem } = require('./EmergenctSuplliesInventory');
-// const http = require('http');
+// const { Inventory,InventoryItem } = require('./EmergenctSuplliesInventory');
+const {handleAddItem,handleDeleteItem,handleGetItem,handleGetItems,handleUpdateItem} = require('./controller');
 const url = require('url');
-// const qs = require('querystring');
-// const fs = require('fs');
 
 
 
