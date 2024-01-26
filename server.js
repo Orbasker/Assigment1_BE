@@ -1,6 +1,7 @@
 const config = require('./config.js');
 const http = require('http');
-const handler = require('./router.js');
+const router = require('./routers/router.js');
+const handler = new router(config.JSONFILE);
 const server = http.createServer((req, res) => {
     if (req.method === 'OPTIONS' ) {
         res.writeHead(200, corsHeaders);

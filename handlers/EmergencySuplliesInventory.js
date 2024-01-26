@@ -1,4 +1,7 @@
 const fs = require('fs');
+const config = require('../config');
+const logger = require('../logger');
+
 
 class InventoryItem {
     constructor(name, quantity, price) {
@@ -12,13 +15,16 @@ class Inventory {
     constructor(filepath) {
         this.inventory = fs.readFileSync(filepath, 'utf8');
         this.inventory = JSON.parse(this.inventory);
+        this.filepath = filepath;
+        this.logger = new logger.Logger('Inventory.log');
     }
     write_invent(msg="Inventory been updated!") {
-        fs.writeFile('inventory.json', JSON.stringify(this.inventory, null, 2), (err) => {
+        fs.writeFile(this.filepath, JSON.stringify(this.inventory, null, 2), (err) => {
             if (err) {
+                this.logger.error(`${new Date().toLocaleString()} : ${err}`);
                 throw err;
             }
-            console.log(msg);
+            this.logger.log(msg);
         });
         
     }
@@ -38,11 +44,20 @@ class Inventory {
         else if (item.quantity < 0 || item.price < 0) {
             throw new Error('Invalid item');
         }
+        else if (isNaN(item.quantity) || isNaN(item.price)) {
+            throw new Error('Invalid item');
+        }
         if (this.ExistedInInventory(item.name)) {
             throw new Error('Item already exists');
         }
         this.inventory.inventory.push(item);
-        this.write_invent("Item has been added to the inventory!")
+        this.write_invent("Item has been added to the inventory!");
+        this.logger.log(`New Item has been added to the inventory!
+           {
+                 Name: ${item.name}, 
+                 Quantity: ${item.quantity}, 
+                 Price: ${item.price}
+                 }`);
     };
     deleteItem(item) {
         
@@ -52,7 +67,8 @@ class Inventory {
         // delete this.inventory.inventory[item];
         this.inventory.inventory = this.inventory.inventory.filter(it => it.name !== item);
         
-        this.write_invent("Item has been deleted from the inventory!")
+        this.write_invent("Item has been deleted from the inventory!");
+        this.logger.log(`${item} Item has been deleted from the inventory!`);
     }
     updateItem(item) {
         if (!this.ExistedInInventory(item.name)) {
@@ -65,7 +81,14 @@ class Inventory {
             }
         });
         
-        this.write_invent("Item has been updated in the inventory!")
+        this.write_invent("Item has been updated in the inventory!");
+        this.logger.log(`Item has been updated in the inventory!
+        {
+            Name: ${item.name}, 
+            Quantity: ${item.quantity}, 
+            Price: ${item.price}
+        }
+        `);
     }
     getItems() {
         return this.inventory;

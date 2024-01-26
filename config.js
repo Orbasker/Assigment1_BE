@@ -1,5 +1,6 @@
 const config = {
 PORT:8080,
-HOST:"localhost"
+HOST:"localhost",
+JSONFILE:"assets/data.json"
 }
 module.exports = config;
